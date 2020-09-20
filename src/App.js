@@ -1,25 +1,118 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { ThemeProvider, createGlobalStyle } from "styled-components";
+import "./App.css";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import About from "./components/About";
+import Portfolio from "./components/Portfolio";
+import Contact from "./components/Contact";
+
+const GlobalStyle = createGlobalStyle`
+  body{
+    background-color: ${(props) =>
+      props.theme.mode === "dark" ? "#2c2d30" : "#dde1e7"};
+    color: ${(props) => (props.theme.mode === "dark" ? "#fff" : "#000")};
+  }
+  .condiv{
+    background-color: ${(props) =>
+      props.theme.mode === "dark" ? "#2c2d30" : "#dde1e7"};
+    color: ${(props) => (props.theme.mode === "dark" ? "#fff" : "#000")};
+  }
+  nav{
+    background-color: ${(props) =>
+      props.theme.mode === "dark" ? "#2c2d30" : "#dde1e7"};
+    color: ${(props) => (props.theme.mode === "dark" ? "#fff" : "#000")};
+  }
+  a{
+    color: ${(props) => (props.theme.mode === "dark" ? "#fff" : "#000")};
+  }
+  .back1{
+    background-color: ${(props) =>
+      props.theme.mode === "dark" ? "#2c2d30" : "#dde1e7"};
+    color: ${(props) => (props.theme.mode === "dark" ? "#fff" : "#000")};
+  }
+  .social{
+    background-color: ${(props) =>
+      props.theme.mode === "dark" ? "#2c2d30" : "#dde1e7"};
+    color: ${(props) => (props.theme.mode === "dark" ? "#fff" : "#000")};
+  }
+  .btnsame{
+    background-color: ${(props) =>
+      props.theme.mode === "dark" ? "#2c2d30" : "#dde1e7"};
+    color: ${(props) => (props.theme.mode === "dark" ? "#fff" : "#000")};
+  }
+  .neu1{
+    background-color: ${(props) =>
+      props.theme.mode === "dark" ? "#2c2d30" : "#dde1e7"};
+    color: ${(props) => (props.theme.mode === "dark" ? "#fff" : "#000")};
+  }
+  .neu2{
+    background-color: ${(props) =>
+      props.theme.mode === "dark" ? "#2c2d30" : "#dde1e7"};
+    color: ${(props) => (props.theme.mode === "dark" ? "#fff" : "#000")};
+  }
+  .hr_line{
+    background-color: ${(props) =>
+      props.theme.mode === "dark" ? "#2c2d30" : "#dde1e7"};
+    color: ${(props) => (props.theme.mode === "dark" ? "#fff" : "#000")};
+  }
+  .hr_inner{
+    background-color: ${(props) =>
+      props.theme.mode === "dark" ? "#2c2d30" : "#dde1e7"};
+    color: ${(props) => (props.theme.mode === "dark" ? "#fff" : "#000")};
+  }
+  .vr_line{
+    background-color: ${(props) =>
+      props.theme.mode === "dark" ? "#2c2d30" : "#dde1e7"};
+    color: ${(props) => (props.theme.mode === "dark" ? "#fff" : "#000")};
+  }
+  .vr_inner{
+    background-color: ${(props) =>
+      props.theme.mode === "dark" ? "#2c2d30" : "#dde1e7"};
+    color: ${(props) => (props.theme.mode === "dark" ? "#fff" : "#000")};
+  }
+`;
 
 function App() {
+  const [theme, setTheme] = useState({ mode: "light" });
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <>
+        <GlobalStyle />
+        <Router>
+          <div className="App">
+            <Navbar />
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/portfolio">
+              <Portfolio />
+            </Route>
+            <Route path="/contact">
+              <Contact />
+            </Route>
+            <div
+              class="back1"
+              onClick={(e) =>
+                setTheme(
+                  theme.mode === "dark" ? { mode: "light" } : { mode: "dark" }
+                )
+              }
+            >
+              <i
+                class={
+                  theme.mode === "dark" ? "fa fa-sun i1" : "fa fa-moon-o i1"
+                }
+              ></i>
+            </div>
+          </div>
+        </Router>
+      </>
+    </ThemeProvider>
   );
 }
 
